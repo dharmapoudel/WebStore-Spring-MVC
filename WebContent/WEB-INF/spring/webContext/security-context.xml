@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+ http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+ http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/products/add"
+			access="ROLE_ADMIN" />
+		<security:form-login login-page="/login"
+			default-target-url="/products/add" authentication-failure-url="/loginfailed" />
+		<security:logout logout-success-url="/logout" />
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="Admin" password="Admin123"
+					authorities="ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
